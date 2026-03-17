@@ -1,0 +1,47 @@
+# ===== Java / Maven =====
+**/target/
+*.class
+*.jar
+*.war
+*.ear
+*.nar
+*.hprof
+
+# Keep Maven wrapper scripts/JAR tracked if they exist
+!.mvn/wrapper/maven-wrapper.jar
+
+# ===== IDE (IntelliJ / JetBrains) =====
+.idea/
+*.iml
+*.ipr
+*.iws
+out/
+
+# ===== Logs =====
+logs/
+*.log
+*.log.*
+
+# ===== Local runtime / temp =====
+*.pid
+*.pid.lock
+*.tmp
+*.temp
+
+# ===== OS files =====
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# ===== Local environment and private overrides =====
+.env
+.env.*
+*.local
+
+# Spring Boot local override naming suggestions
+# (avoid committing machine-specific secrets/config)
+application-local.override.yaml
+application-local.override.yml
+application-private.yaml
+application-private.yml
+
