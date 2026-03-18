@@ -13,6 +13,7 @@
         <module>hm-service</module>
         <module>item-serve</module>
         <module>cart-service</module>
+        <module>hall-api</module>
     </modules>
 
     <parent>
