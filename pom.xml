@@ -11,9 +11,10 @@
     <modules>
         <module>hm-common</module>
         <module>hm-service</module>
-        <module>item-serve</module>
+        <module>item-service</module>
         <module>cart-service</module>
         <module>hall-api</module>
+        <module>user-service</module>
     </modules>
 
     <parent>
