@@ -12,6 +12,7 @@
         <module>hm-common</module>
         <module>hm-service</module>
         <module>item-serve</module>
+        <module>cart-service</module>
     </modules>
 
     <parent>
