@@ -63,8 +63,7 @@
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
         </dependency>
-
-
+        <!--api-->
         <dependency>
             <groupId>com.heima</groupId>
             <artifactId>hall-api</artifactId>
