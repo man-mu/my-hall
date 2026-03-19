@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>com.heima</groupId>
-        <artifactId>hmall</artifactId>
+        <artifactId>my-hall</artifactId>
         <version>1.0.0</version>
     </parent>
 
@@ -64,22 +64,10 @@
             <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
         </dependency>
 
-        <!--OK http 的依赖 -->
-        <dependency>
-            <groupId>io.github.openfeign</groupId>
-            <artifactId>feign-okhttp</artifactId>
-        </dependency>
-
         <dependency>
             <groupId>com.heima</groupId>
             <artifactId>hall-api</artifactId>
             <version>1.0.0</version>
-        </dependency>
-        <dependency>
-            <groupId>com.heima</groupId>
-            <artifactId>hm-service</artifactId>
-            <version>1.0.0</version>
-            <scope>compile</scope>
         </dependency>
     </dependencies>
     <build>

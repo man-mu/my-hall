@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.heima</groupId>
-    <artifactId>hmall</artifactId>
+    <artifactId>my-hall</artifactId>
     <packaging>pom</packaging>
     <version>1.0.0</version>
     <modules>
@@ -15,6 +15,8 @@
         <module>cart-service</module>
         <module>hall-api</module>
         <module>user-service</module>
+        <module>trade-service</module>
+        <module>pay-service</module>
     </modules>
 
     <parent>
