@@ -1,6 +1,6 @@
 spring:
   application:
-    name: trade-service
+    name: hall-gateway
   profiles:
     active: dev
   cloud:
@@ -9,7 +9,5 @@ spring:
       config:
         file-extension: yaml
         shared-configs:
-          - data-id: shared-jdbc.yaml
           - data-id: shared-log.yaml
-          - data-id: shared-swagger.yaml
 

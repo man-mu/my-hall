@@ -5,7 +5,10 @@ feign:
     enabled: true
 hm:
   db:
-    database: item-service
+    database: hm-item
+    host: 127.0.0.1
+    port: 3306
+    pw: 123456
   swagger:
     title: "黑马商城商品服务接口文档"
     package: com.hmall.item.controller

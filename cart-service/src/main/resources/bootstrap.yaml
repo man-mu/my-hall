@@ -8,7 +8,7 @@ spring:
       server-addr: 127.0.0.1:8848
       config:
         file-extension: yaml
-        shared-config:
+        shared-configs:
           - data-id: shared-jdbc.yaml
           - data-id: shared-log.yaml
           - data-id: shared-swagger.yaml

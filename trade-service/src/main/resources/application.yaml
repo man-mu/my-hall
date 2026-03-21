@@ -6,6 +6,9 @@ feign:
 hm:
   db:
     database: hm-trade
+    host: 127.0.0.1
+    port: 3306
+    pw: 123456
   swagger:
     title: "黑马商城交易服务接口文档"
     package: com.hmall.trade.controller

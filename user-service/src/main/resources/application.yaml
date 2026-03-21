@@ -6,6 +6,14 @@ feign:
 hm:
   db:
     database: hm-user
+    host: 127.0.0.1
+    port: 3306
+    pw: 123456
+  jwt:
+    location: classpath:hmall.jks
+    alias: hmall
+    password: hmall123
+    tokenTTL: 30m
   swagger:
     title: "黑马商城用户服务接口文档"
     package: com.hmall.user.controller
