@@ -3,6 +3,8 @@
 feign:
   okhttp:
     enabled: true
+  sentinel:
+    enabled: true
 hm:
   db:
     database: hm-cart

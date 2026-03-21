@@ -1,5 +1,6 @@
 package com.hmall.api.config;
 
+import com.hmall.api.fallback.ItemClientFallBackFactory;
 import com.hmall.common.utils.UserContext;
 import feign.Logger;
 import feign.RequestInterceptor;
@@ -7,12 +8,17 @@ import feign.RequestTemplate;
 import org.springframework.context.annotation.Bean;
 
 public class config {
+    /**
+    志级别
+     */
     @Bean
     public Logger.Level feignLoggerLevel() {
         return Logger.Level.FULL;
     }
 
-    //匿名内部类注册拦截器
+    /**
+    拦截器，用于在请求头中添加用户信息
+     */
     @Bean
     public RequestInterceptor userInfoInterceptor() {
         return new RequestInterceptor(){
@@ -24,5 +30,13 @@ public class config {
                 }
             }
         };
+    }
+
+    /**
+    回退工厂，用于在 ItemClient 失败时创建 ItemClient 实例
+     */
+    @Bean
+    public ItemClientFallBackFactory itemClientFallBackFactory() {
+        return new ItemClientFallBackFactory();
     }
 }
