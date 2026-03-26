@@ -7,6 +7,7 @@ import com.hmall.api.dto.ItemDTO;
 import com.hmall.api.dto.OrderDetailDTO;
 import com.hmall.common.exception.BadRequestException;
 import com.hmall.common.utils.UserContext;
+import com.hmall.trade.constants.MQConstants;
 import com.hmall.trade.domain.dto.OrderFormDTO;
 import com.hmall.trade.domain.po.Order;
 import com.hmall.trade.domain.po.OrderDetail;
@@ -14,6 +15,7 @@ import com.hmall.trade.mapper.OrderMapper;
 import com.hmall.trade.service.IOrderDetailService;
 import com.hmall.trade.service.IOrderService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -39,6 +41,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
     private final ItemClient itemClient;
     private final IOrderDetailService detailService;
     private final CartClient cartService;
+    private final RabbitTemplate rabbitTemplate;
 
 
     @Override
@@ -83,6 +86,16 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
         } catch (Exception e) {
             throw new RuntimeException("库存不足！");
         }
+
+        // 5.发送延迟消息，检测订单支付状态
+        rabbitTemplate.convertAndSend(
+                MQConstants.DELAY_EXCHANGE_NAME,
+                MQConstants.DELAY_ROUTING_KEY,
+                order.getId(),
+                message -> {
+                    message.getMessageProperties().setDelay(30 * 60 * 1000);
+                    return message;
+                });
         return order.getId();
     }
 
@@ -93,6 +106,35 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
         order.setStatus(2);
         order.setPayTime(LocalDateTime.now());
         updateById(order);
+    }
+
+    @Override
+    @Transactional
+    public void cancelOrder(Long orderId) {
+        Order order = getById(orderId);
+        order.setStatus(5);
+        order.setCloseTime(LocalDateTime.now());
+        updateById(order);
+        List<OrderDetail> details = detailService.lambdaQuery()
+                .eq(OrderDetail::getOrderId, orderId)
+                .list();
+        // 将恢复库存的请求通过 Feign 调用到 item-service，避免直接操作 item 表造成的耦合
+        List<OrderDetailDTO> restoreList = details.stream()
+                .map(d -> {
+                    OrderDetailDTO dto = new OrderDetailDTO();
+                    dto.setItemId(d.getItemId());
+                    dto.setNum(d.getNum());
+                    return dto;
+                })
+                .collect(Collectors.toList());
+        if (!restoreList.isEmpty()) {
+            try {
+                itemClient.restoreStock(restoreList);
+            } catch (Exception e) {
+                // 记录或抛出，视业务可接受度决定。此处抛出让事务回滚并触发上层处理
+                throw new RuntimeException("恢复库存失败", e);
+            }
+        }
     }
 
     private List<OrderDetail> buildDetails(Long orderId, List<ItemDTO> items, Map<Long, Integer> numMap) {
