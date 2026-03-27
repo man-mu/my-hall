@@ -1,13 +1,12 @@
-package com.hmall.item.controller;
-
+package com.hmall.search.controller;
 
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.hmall.common.domain.PageDTO;
-import com.hmall.item.domain.dto.ItemDTO;
-import com.hmall.item.domain.po.Item;
-import com.hmall.item.domain.query.ItemPageQuery;
-import com.hmall.item.service.IItemService;
+import com.hmall.search.domain.dto.ItemDTO;
+import com.hmall.search.domain.po.Item;
+import com.hmall.search.domain.query.ItemPageQuery;
+import com.hmall.search.service.IItemService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;

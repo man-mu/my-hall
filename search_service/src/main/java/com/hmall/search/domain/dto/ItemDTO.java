@@ -1,12 +1,10 @@
-package com.hmall.item.domain.dto;
+package com.hmall.search.domain.dto;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.Builder;
 import lombok.Data;
 
 @Data
-@Builder
 @ApiModel(description = "商品实体")
 public class ItemDTO {
     @ApiModelProperty("商品id")

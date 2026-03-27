@@ -1,13 +1,13 @@
 package com.hmall.user;
 
-import com.hmall.api.config.config;
+import com.hmall.api.config.Config;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 
-@EnableFeignClients(basePackages = "com.hmall.api.client", defaultConfiguration = config.class)
+@EnableFeignClients(basePackages = "com.hmall.api.client", defaultConfiguration = Config.class)
 @MapperScan("com.hmall.user.mapper")
 @EnableConfigurationProperties(com.hmall.user.config.JwtProperties.class)
 @SpringBootApplication
